@@ -21,14 +21,11 @@ RUN composer install --no-scripts --ignore-platform-reqs --prefer-dist --no-dev 
 # Copy the rest of the code
 COPY . .
 
-# Copy .env if missing (Laravel needs this for artisan commands)
-RUN cp .env.example .env
-
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
 # Expose port for Laravel serve
 EXPOSE 8000
 
-# Run Laravel app
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Run Laravel app and clear config cache first
+CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=8000
