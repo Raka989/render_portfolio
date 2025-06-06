@@ -27,9 +27,6 @@ RUN cp .env.example .env
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
-# Generate application key
-RUN php artisan key:generate
-
 # Expose port for Laravel serve
 EXPOSE 8000
 
