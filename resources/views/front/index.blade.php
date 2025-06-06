@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Explore high-quality web development and design services with a vibrant RGB-themed portfolio.">
     <meta name="author" content="Rakesh Yadav">
-    <title>RGB Portfolio | Rakesh Yadav</title>
+    <title> Portfolio | Rakesh Yadav</title>
     <!-- font icons -->
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + Custom styles -->
