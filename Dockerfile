@@ -21,11 +21,14 @@ RUN composer install --no-scripts --ignore-platform-reqs --prefer-dist --no-dev 
 # Copy the rest of the code
 COPY . .
 
+# Remove any default .env to force Laravel to use Render's environment variables
+RUN rm -f .env
+
 # Set permissions
 RUN chmod -R 775 storage bootstrap/cache
 
 # Expose port for Laravel serve
 EXPOSE 8000
 
-# Run Laravel app and clear config cache first
-CMD php artisan config:clear && php artisan serve --host=0.0.0.0 --port=8000
+# Clear config cache and run the Laravel development server
+CMD php artisan config:clear && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=8000
