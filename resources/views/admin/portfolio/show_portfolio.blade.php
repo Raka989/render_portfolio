@@ -123,7 +123,8 @@
                                     <tr style="border-style: solid;">
 
 
-                                        <td><img src="{{ asset('admin/portfolio/show_portfolio/' . $portfolios->image) }}" style="height: 100px; object-fit: contain;">
+                                        <td><img src="{{ asset('storage/portfolio_images/' . $portfolios->image) }}" style="height: 100px; object-fit: contain;">
+
                                            </td>
 
                                         <td><a class="btn btn-warning" href="portfolio_delete{{($portfolios->portfolio_id)}}">Delete</td>

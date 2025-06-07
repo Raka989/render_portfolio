@@ -15,22 +15,28 @@ class blogcontroller extends Controller
 
     public function blog_add(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $img = null;
         if ($request->hasFile('image')) {
-            $img = 'blkheart' . rand(111111111, 999999999) . '.' . $request->file('image')->extension();
-            $request->file('image')->move(public_path('blog_images'), $img);
-        } else {
-            $img = null;
+            $img = 'blkheart' . rand(111111111, 999999999) . '.' . $request->image->extension();
+            $request->image->move(public_path('blog_images'), $img);
         }
 
-        $arrayname = [
+        DB::table('blog')->insert([
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
             'date' => $request->date,
             'image' => $img,
-        ];
+        ]);
 
-        DB::table('blog')->insert($arrayname);
         return back()->with('success', 'Blog inserted successfully');
     }
 
@@ -54,22 +60,30 @@ class blogcontroller extends Controller
 
     public function blog_update(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string',
+            'short_description' => 'required|string',
+            'long_description' => 'required|string',
+            'date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'old_image' => 'nullable|string'
+        ]);
+
+        $img = $request->old_image ?? null;
+
         if ($request->hasFile('image')) {
-            $img = 'blkheart' . rand(111111111, 999999999) . '.' . $request->file('image')->extension();
-            $request->file('image')->move(public_path('blog_images'), $img);
-        } else {
-            $img = null;
+            $img = 'blkheart' . rand(111111111, 999999999) . '.' . $request->image->extension();
+            $request->image->move(public_path('blog_images'), $img);
         }
 
-        $arrayname = [
+        DB::table('blog')->where('blog_id', $request->blog_id)->update([
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description,
             'date' => $request->date,
             'image' => $img
-        ];
+        ]);
 
-        DB::table('blog')->where('blog_id', $request->blog_id)->update($arrayname);
         return redirect('blog_show')->with('success', 'Blog updated successfully');
     }
 
@@ -77,26 +91,5 @@ class blogcontroller extends Controller
     {
         $data['details'] = DB::table('blog')->where('blog_id', $request->blog_id)->first();
         return view('admin.blog.blog_details', $data);
-    }
-
-    public function blog_details_page(Request $request)
-    {
-        if ($request->hasFile('image')) {
-            $img = 'blkheartyt' . rand(111111111, 999999999) . '.' . $request->file('image')->extension();
-            $request->file('image')->move(public_path('blog_images'), $img);
-        } else {
-            $img = null;
-        }
-
-        $arrayname = [
-            'title' => $request->title,
-            'short_description' => $request->short_description,
-            'long_description' => $request->long_description,
-            'date' => $request->date,
-            'image' => $img
-        ];
-
-        DB::table('blog')->where('blog_id', $request->blog_id)->update($arrayname);
-        return redirect('blog_show')->with('success', 'Blog updated successfully');
     }
 }

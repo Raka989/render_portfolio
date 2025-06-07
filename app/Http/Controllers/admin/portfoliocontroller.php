@@ -21,7 +21,9 @@ class portfoliocontroller extends Controller
 
         if ($request->hasFile('image')) {
             $img = 'blkheartyt' . rand(111111111, 999999999) . '.' . $request->file('image')->extension();
-            $request->file('image')->move(public_path('admin/portfolio/show_portfolio'), $img);
+
+            // Store image in storage/app/public/portfolio_images
+            $request->file('image')->storeAs('portfolio_images', $img, 'public');
 
             $arrayname = [
                 'image' => $img,
@@ -63,7 +65,9 @@ class portfoliocontroller extends Controller
 
         if ($request->hasFile('image')) {
             $img = "blkheartyt" . rand(111111111, 999999999) . '.' . $request->file('image')->extension();
-            $request->file('image')->move(public_path('admin/portfolio/show_portfolio'), $img);
+
+            // Store new image
+            $request->file('image')->storeAs('portfolio_images', $img, 'public');
         } else {
             $img = $request->old_image;
         }

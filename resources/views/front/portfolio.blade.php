@@ -9,7 +9,7 @@
     <!-- font icons -->
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + JohnDoe main styles -->
-	<link rel="stylesheet" href="assets/css/johndoe.css">
+    <link rel="stylesheet" href="assets/css/johndoe.css">
 
     <!-- Custom Styles for fixed image dimensions -->
     <style>
@@ -55,9 +55,7 @@
         .content-holder p {
             font-size: 14px;
         }
-
     </style>
-
 </head>
 
 @include('front.layouts.header')
@@ -72,16 +70,13 @@
                 @foreach($portfolio as $portfolios)
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="portfolio-item">
-                        <!-- Display image -->
-                        <img src="{{ asset('admin.portfolio.show_portfolio/' . $portfolios->image) }}" class="img-fluid" alt="Portfolio Image">
-
-                        <!-- Content Holder with static text -->
+                        <a class="img-popup" href="{{ asset('storage/portfolio_images/' . $portfolios->image) }}">
+                            <img src="{{ asset('storage/portfolio_images/' . $portfolios->image) }}" alt="Portfolio Image" style="height: 250px; object-fit: cover; border-radius: 10px;">
+                        </a>
                         <div class="content-holder">
-                            <a class="img-popup" href="{{ asset('admin.portfolio.show_portfolio/' . $portfolios->image) }}"></a>
                             <div class="text-holder">
-                                <h6 class="title">project</h6>
-                                <p class="subtitle">projects</p>
-
+                                <h6 class="title">Project</h6>
+                                <p class="subtitle">Projects</p>
                             </div>
                         </div>
                     </div>
